@@ -45,6 +45,8 @@ namespace StudentsRating
         {
             Stack<MenuCategory> wayBack = new Stack<MenuCategory>();
             var index = 0;
+            var left = 0;
+            var top = 15;
             while (true)
             {
                 DrawMenu(0, 1, index);
@@ -72,6 +74,8 @@ namespace StudentsRating
                                 Console.Clear();
                                 break;
                             case MenuAction action:
+                                Console.Clear();
+                                Console.SetCursorPosition(left, top);
                                 action.Action(action);
                                 break;
                             case MenuBack:

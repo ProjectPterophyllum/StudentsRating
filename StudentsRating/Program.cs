@@ -1,10 +1,12 @@
 ﻿using StudentsRating;
 using System.Threading.Tasks.Dataflow;
 Console.WriteLine("Welcome to Students Rating Program");
+
 var journal = new Dictionary<Student, List<Mark>>();
 var teachersList = new List<Teacher>();
 var studentsList = new List<Student>();
 var subjectsList = new List<Subject>();
+
 //Subject
 Subject CE = new Subject() { NameSubj = "Combat Evolved" };
 Subject MG = new Subject() { NameSubj = "Metal Gear" };
@@ -19,7 +21,7 @@ Student Okita = new Student()
 };
 Student Rasta = new Student()
 {
-    Id= 2,
+    Id = 2,
     FirstName = "Bob",
     LastName = "Marley",
     Age = 26,
@@ -43,7 +45,7 @@ Teacher Chief = new Teacher()
     Subject = CE
 };
 Teacher Jack = new Teacher()
-{ 
+{
     Id = 2,
     FirstName = "Jack",
     LastName = "Ripper",
@@ -54,11 +56,10 @@ Teacher Jack = new Teacher()
 studentsList.Add(Halo);
 studentsList.Add(Okita);
 studentsList.Add(Rasta);
-var marksList = new List<Mark>();
 //marksList.Add(mark);
-foreach(Student student in studentsList)
+foreach (Student student in studentsList)
 {
-    journal.Add(student, marksList);
+    journal.Add(student, new List<Mark>());
 }
 MenuCategory main = new MenuCategory("Главное меню", new MenuItem[]
     {
@@ -78,18 +79,36 @@ MenuCategory main = new MenuCategory("Главное меню", new MenuItem[]
         {
             new MenuAction("Поставить оценку", AddMark=>
             {
-                var temp = Console.ReadLine();
-                Mark mark = new Mark()
+                Console.WriteLine("Выберите студента(Введите id): ");
+                int id = int.Parse(Console.ReadLine());
+                foreach(Student student in studentsList)
                 {
-
-                };
-                journal.Add(Rasta, marksList);
-            }),
+                    if(id == student.Id)
+                    {
+                        Console.WriteLine($"Вы выбрали студента: {student.ToString()}");
+                        Console.WriteLine("Введите оценку: ");
+                        var temp = Console.ReadLine();
+                        Mark mark = new Mark()
+                        {
+                            Value = Convert.ToInt32(temp),
+                            Teacher = Jack
+                        };
+                        journal[student].Add(mark);
+                    }
+                }
+            } ),
             new MenuAction("Посмотреть оценки студента", ShowMarks=>
             {
-                
-               ILists.ShowList(journal[Rasta]);
-                
+                Console.WriteLine("Выберите студента(Введите id): ");
+                int id = int.Parse(Console.ReadLine());
+                foreach(Student student in studentsList)
+                {
+                    if(id == student.Id)
+                    {   
+                        Console.WriteLine($"Вы выбрали студента: {student.ToString()}");
+                        ILists.ShowList(journal[student]);
+                    }
+                }
             }),
             new MenuAction("Добавить студента", MenuAction.SomeActionMethod),
             new MenuAction("Удалить студента", MenuAction.SomeActionMethod),
