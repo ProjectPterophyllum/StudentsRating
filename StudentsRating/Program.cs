@@ -1,4 +1,5 @@
 ﻿using StudentsRating;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks.Dataflow;
 Console.WriteLine("Welcome to Students Rating Program");
 
@@ -81,10 +82,12 @@ MenuCategory main = new MenuCategory("Главное меню", new MenuItem[]
             {
                 Console.WriteLine("Выберите студента(Введите id): ");
                 int id = int.Parse(Console.ReadLine());
+                bool find = false;
                 foreach(Student student in studentsList)
                 {
                     if(id == student.Id)
                     {
+                        find = true;
                         Console.WriteLine($"Вы выбрали студента: {student.ToString()}");
                         Console.WriteLine("Введите оценку: ");
                         var temp = Console.ReadLine();
@@ -96,18 +99,28 @@ MenuCategory main = new MenuCategory("Главное меню", new MenuItem[]
                         journal[student].Add(mark);
                     }
                 }
+                if (!find)
+                {
+                    Console.WriteLine("Студент не найден.");
+                }
             } ),
             new MenuAction("Посмотреть оценки студента", ShowMarks=>
             {
                 Console.WriteLine("Выберите студента(Введите id): ");
                 int id = int.Parse(Console.ReadLine());
+                bool find = false;
                 foreach(Student student in studentsList)
                 {
                     if(id == student.Id)
-                    {   
+                    {
+                        find = true;
                         Console.WriteLine($"Вы выбрали студента: {student.ToString()}");
                         ILists.ShowList(journal[student]);
                     }
+                }
+                if (!find)
+                {
+                    Console.WriteLine("Студент не найден.");
                 }
             }),
             new MenuAction("Добавить студента", MenuAction.SomeActionMethod),
