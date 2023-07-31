@@ -1,8 +1,16 @@
 ﻿using StudentsRating;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks.Dataflow;
-Console.WriteLine("Welcome to Students Rating Program");
+void ShowList<T>(List<T> list)
+{
+    foreach (var type in list)
+    {
+        Console.WriteLine(type.ToString());
+        Console.WriteLine();
+    }
+}
 
+Console.WriteLine("Welcome to Students Rating Program");
 var journal = new Dictionary<Student, List<Mark>>();
 var teachersList = new List<Teacher>();
 var studentsList = new List<Student>();
@@ -57,7 +65,10 @@ Teacher Jack = new Teacher()
 studentsList.Add(Halo);
 studentsList.Add(Okita);
 studentsList.Add(Rasta);
-//marksList.Add(mark);
+teachersList.Add(Chief);
+teachersList.Add(Jack);
+subjectsList.Add(CE);
+subjectsList.Add(MG);
 foreach (Student student in studentsList)
 {
     journal.Add(student, new List<Mark>());
@@ -66,15 +77,15 @@ MenuCategory main = new MenuCategory("Главное меню", new MenuItem[]
     {
         new MenuAction("Показать студентов", ShowList =>
         {
-            ILists.ShowList(studentsList);
+            ShowList<Student>(studentsList);
         }),
         new MenuAction("Показать учителей", ShowList =>
         {
-            ILists.ShowList(teachersList);
+            ShowList<Teacher>(teachersList);
         }),
         new MenuAction("Показать предметы", ShowList =>
         {
-            ILists.ShowList(subjectsList);
+            ShowList<Subject>(subjectsList);
         }),
         new MenuCategory("Работа со списком студентов", new MenuItem[]
         {
@@ -115,7 +126,7 @@ MenuCategory main = new MenuCategory("Главное меню", new MenuItem[]
                     {
                         find = true;
                         Console.WriteLine($"Вы выбрали студента: {student.ToString()}");
-                        ILists.ShowList(journal[student]);
+                        ShowList(journal[student]);
                     }
                 }
                 if (!find)
@@ -147,3 +158,4 @@ menu.RunMenu();
 
 Console.WriteLine("Выход из приложения, нажмите любую клавишу...");
 Console.ReadKey();
+
