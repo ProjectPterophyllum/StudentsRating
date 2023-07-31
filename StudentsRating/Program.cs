@@ -16,10 +16,8 @@ var teachersList = new List<Teacher>();
 var studentsList = new List<Student>();
 var subjectsList = new List<Subject>();
 
-//Subject
 Subject CE = new Subject() { NameSubj = "Combat Evolved" };
 Subject MG = new Subject() { NameSubj = "Metal Gear" };
-//Student
 Student Okita = new Student()
 {
     Id = 1,
@@ -44,7 +42,6 @@ Student Halo = new Student()
     Age = 999,
     Group = "Halo"
 };
-//Teacher
 Teacher Chief = new Teacher()
 {
     Id = 1,
@@ -61,7 +58,6 @@ Teacher Jack = new Teacher()
     Age = 32,
     Subject = MG
 };
-//Mark
 studentsList.Add(Halo);
 studentsList.Add(Okita);
 studentsList.Add(Rasta);
